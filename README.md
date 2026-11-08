@@ -230,5 +230,3 @@ docs/           Technical report
 - [System architecture and tool permissions](architecture.md)
 - [Technical report](docs/technical-report.md)
 - [Evidence index](evidence/README.md)
-
-Built for **Assignment 03 — MLOps & Production AI Engineering, Fall 2026**.
