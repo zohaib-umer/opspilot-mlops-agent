@@ -131,6 +131,8 @@ class Orchestrator:
         args = request.arguments.model_copy(deep=True)
         try:
             plan = self.plan(request.message)
+            if "compare" in request.message.lower() and args.run_ids and "mlflow.runs" in plan:
+                plan = ["mlflow.compare"]
         except Exception as exc:
             return ChatResponse(request_id=request_id, facts=[], evidence=[], recommendations=[],
                                 uncertainties=[f"Request planning failed ({type(exc).__name__})."])

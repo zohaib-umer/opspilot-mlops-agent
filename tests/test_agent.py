@@ -170,3 +170,44 @@ def test_unknown_request_is_not_routed_to_infrastructure():
     reply = Orchestrator(settings(), {}).chat(ChatRequest(message="Tell me a joke"))
     assert not reply.evidence
     assert reply.uncertainties
+
+
+def test_structured_planner_only_accepts_allowlisted_read_tools(monkeypatch):
+    response = Mock()
+    response.json.return_value = {"message": {"content": '{"tools":["kubernetes.restart"]}'}}
+    monkeypatch.setattr(httpx, "post", lambda *a, **kw: response)
+    engine = Orchestrator(settings(ollama_url="http://localhost:11434"),
+                          {"dvc.status": Mock(), "kubernetes.restart": Mock()})
+    with pytest.raises(ValueError, match="invalid tool"):
+        engine.plan("Inspect data")
+
+
+def test_structured_planner_selects_and_executes_read_tool(monkeypatch):
+    response = Mock()
+    response.json.return_value = {"message": {"content": '{"tools":["dvc.status"]}'}}
+    monkeypatch.setattr(httpx, "post", lambda *a, **kw: response)
+    read = Mock(return_value={"changes": {}})
+    reply = Orchestrator(settings(ollama_url="http://localhost:11434"), {"dvc.status": read}).chat(
+        ChatRequest(message="Inspect my data changes"))
+    assert reply.evidence[0].status == "ok"
+    read.assert_called_once()
+
+
+def test_comparison_honors_explicit_run_ids():
+    compare = Mock(return_value={"runs": []})
+    engine = Orchestrator(settings(), {"mlflow.compare": compare})
+    engine.chat(ChatRequest(message="Compare experiments", arguments=ToolArgs(run_ids=["a", "b"])))
+    assert compare.call_args.args[0].run_ids == ["a", "b"]
+
+
+def test_agent_api_requires_configured_key(monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from agent import main
+
+    monkeypatch.setattr(main, "engine", lambda: Orchestrator(settings(agent_api_key="test-key"), {}))
+    with TestClient(main.app) as client:
+        assert client.get("/health").status_code == 200
+        assert client.get("/tools").status_code == 401
+        assert client.get("/tools", headers={"X-API-Key": "wrong"}).status_code == 401
+        assert client.get("/tools", headers={"X-API-Key": "test-key"}).status_code == 200
