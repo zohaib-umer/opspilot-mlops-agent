@@ -113,7 +113,7 @@ python scripts/wait_services.py
 
 Airflow standalone generates its development login. Read it locally with `docker compose exec airflow cat /opt/airflow/passwords.json`, then set `AIRFLOW_PASSWORD` in `.env`. Enable `training_pipeline` in the Airflow UI before triggering it. The agent uses `/auth/token` and authenticated `/api/v2` requests.
 
-On Linux, ensure the mounted repository permits the Airflow container user (UID 50000) to create `artifacts/`. The Compose stack uses local volumes for MLflow storage and Airflow state.
+On Linux, create the shared output directory before training with `mkdir -p artifacts && chmod 0777 artifacts`, or grant equivalent access to the Airflow container user (UID 50000). The Compose stack uses local volumes for MLflow storage and Airflow state.
 
 ### 3. Train an approved serving model
 

@@ -30,6 +30,7 @@ jobs:
           mkdir -p evidence/live
       - name: Start tracking and orchestration services
         run: |
+          mkdir -p artifacts
           chmod -R a+rwX .
           docker compose up -d --build
           python scripts/wait_services.py

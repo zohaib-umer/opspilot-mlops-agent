@@ -55,3 +55,22 @@ def test_prediction_and_input_validation(monkeypatch, tmp_path):
                                                "petal_length": 1.4, "petal_width": 0.2})
         assert result.json()["class_name"] == "setosa"
         assert client.post("/predict", json={"sepal_length": -1}).status_code == 422
+
+
+def test_provenance_uses_committed_pointer_and_verifies_bytes(monkeypatch, tmp_path):
+    path = tmp_path / "iris.csv"
+    path.write_bytes(b"verified dataset\n")
+    digest = train.hashlib.md5(path.read_bytes()).hexdigest()
+    calls = []
+
+    def git(args, **kwargs):
+        calls.append(args)
+        return "a" * 40 if args[1] == "rev-parse" else f"outs:\n- md5: {digest}\n"
+
+    monkeypatch.setattr(train.subprocess, "check_output", git)
+    result = train.provenance(path)
+    assert result["dvc.md5"] == digest
+    assert "\\" not in calls[1][-1]
+    path.write_bytes(b"modified dataset\n")
+    with pytest.raises(ValueError, match="do not match"):
+        train.provenance(path)

@@ -69,7 +69,7 @@ def train(split, output="artifacts/work"):
 
 def provenance(path):
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-    metadata_path = str(Path(path).with_suffix(Path(path).suffix + ".dvc"))
+    metadata_path = Path(path).with_suffix(Path(path).suffix + ".dvc").as_posix()
     # Read the metadata at the recorded commit, not an uncommitted workspace pointer.
     pointer = yaml.safe_load(subprocess.check_output(
         ["git", "show", f"{commit}:{metadata_path}"], text=True,
