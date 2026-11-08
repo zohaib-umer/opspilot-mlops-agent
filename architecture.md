@@ -73,6 +73,10 @@ All tools accept the `ToolArgs` schema. `/tools` exports the complete JSON schem
 - Workflow retries are capped at two; all task dependencies use success semantics. Validation or gate failures block release output.
 - A high F1 score selects a candidate; it does not establish production readiness. Retraining recommendations use configured freshness, a failed gate, or recorded degradation evidence.
 
+## Deployment health interpretation
+
+Deployment checks combine desired, updated and ready replica counts with Pod readiness, restart counts, events and container logs. Pods marked for termination remain visible in the evidence but are excluded from active-Pod health assessment, so a retiring replica does not incorrectly mark a recovered rollout as unhealthy.
+
 ## Deployment boundaries
 
 The agent is launched on the operator's machine and uses its restricted Kubernetes context. The prediction service runs in Kubernetes. Airflow and MLflow run in Compose for reproducible execution. The training image is promoted manually after its gate; neither assessment nor model ranking automatically changes a deployment.
