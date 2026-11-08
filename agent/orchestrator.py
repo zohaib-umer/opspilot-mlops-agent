@@ -178,7 +178,11 @@ class Orchestrator:
                     if not pod["ready"] or pod["restarts"]:
                         facts.append(f"Pod {pod['name']}: phase={pod['phase']}, restarts={pod['restarts']}.")
                         log_args = args.model_copy(update={"pod": pod["name"]})
-                        evidence.append(self.execute("kubernetes.logs", log_args, request_id))
+                        logs = self.execute("kubernetes.logs", log_args, request_id)
+                        evidence.append(logs)
+                        if logs.status == "ok" and "Approved model unavailable" in logs.data.get("logs", ""):
+                            facts.append(f"Container logs for {pod['name']} report an unavailable approved model.")
+                            actions.append("Restore the configured model directory and verify that the approved serving bundle exists.")
                 if not pods or not all(p["ready"] for p in pods):
                     actions.append("Investigate Pod events and container logs before restarting the application.")
             elif name == "kubernetes.deployments":
@@ -188,6 +192,11 @@ class Orchestrator:
                     deployed = deployment["annotations"].get("opspilot/model-run-id")
                     if selected and deployed != selected["run_id"]:
                         unknowns.append("Deployment does not identify the selected run as its serving model.")
+            elif name == "kubernetes.events":
+                events = [e for e in data.get("events", [])
+                          if self.settings.kube_deployment in (e.get("object") or "")]
+                for event in events[-5:]:
+                    facts.append(f"Kubernetes event {event['reason']} on {event['object']}: {event['message']}")
             elif name == "airflow.runs":
                 runs = data.get("dag_runs", [])
                 if runs:

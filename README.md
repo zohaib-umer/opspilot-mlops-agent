@@ -61,6 +61,8 @@ cp .env.example .env
 
 On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` and use `Copy-Item .env.example .env`.
 
+For an exact dependency restore, install [uv](https://docs.astral.sh/uv/) and run `uv sync --frozen --extra dev --python 3.11`. The committed `uv.lock` records the complete resolved environment. Airflow has its own container environment to preserve its framework-specific dependency requirements.
+
 Set `AGENT_API_KEY` in `.env` to a long random value. Keep credentials in `.env` or environment variables; the repository ignores both local credentials and runtime artifacts.
 
 ### Environment configuration

@@ -1,0 +1,18 @@
+{
+  "run_id": "a9bc6a1b76074fa1936eb4ff51b64c82",
+  "model_version": 1,
+  "quality_gate": "passed",
+  "metrics": {
+    "f1": 0.9229629629629629,
+    "accuracy": 0.9210526315789473
+  },
+  "features": [
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width"
+  ],
+  "environment": "Windows / local MLflow SQLite",
+  "mocked": false,
+  "captured_at": "2026-11-08T10:13:26.765426+00:00"
+}

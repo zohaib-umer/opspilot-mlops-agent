@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -22,8 +23,10 @@ async def lifespan(app):
             raise ValueError("Model did not pass quality gate")
         app.state.model = joblib.load(root / "model.joblib")
         app.state.metadata = metadata
-    except (OSError, ValueError):
-        pass
+    except (OSError, ValueError) as exc:
+        logging.getLogger("opspilot.inference").warning(
+            "Approved model unavailable at %s (%s)", root, type(exc).__name__,
+        )
     yield
 
 
