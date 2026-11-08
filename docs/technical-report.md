@@ -34,6 +34,8 @@ The live verification script saves the actual request, response and tool results
 
 Each response carries a request ID and per-tool status/duration. Recorded service failures remain explicit uncertainties. The multi-tool request does not start retraining. It can recommend retraining only when the selected model violates the configured age policy, has a failed gate, or has recorded degradation evidence.
 
+A sixth verification uses an actual Ollama `qwen2.5:0.5b` model to produce a schema-constrained read-only plan and execute DVC operations. Its output is saved as `06-language-model-planning.json`; ordinary unit tests separately verify rejection of unauthorized model-selected operations.
+
 ## Failure investigation 1: rejected dataset validation
 
 **Injection:** a real Airflow DAG run receives `inject_failure=validation`. The validation stage raises a schema-related exception, exercising task retries and downstream failure propagation.

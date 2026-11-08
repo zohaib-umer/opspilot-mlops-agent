@@ -200,6 +200,8 @@ class Orchestrator:
                         if details.status == "ok":
                             for task in details.data.get("failed_tasks", []):
                                 facts.append(f"Training task {task['task_id']} is {task['state']}.")
+                                if task["state"] != "failed":
+                                    continue  # Upstream-blocked tasks never started and have no execution log.
                                 log_args = task_args.model_copy(update={"task_id": task["task_id"],
                                                                        "try_number": max(1, task.get("try_number", 1))})
                                 evidence.append(self.execute("airflow.logs", log_args, request_id))

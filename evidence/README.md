@@ -9,6 +9,7 @@ The **Live infrastructure verification** workflow exports actual responses from 
 | `03-pipeline-*.json` | Confirmed trigger, terminal DAG/task states and subsequent agent inspection |
 | `04-deployment-diagnosis.json` | Actual Deployments, Pods, Services and events |
 | `05-multi-tool-assessment.json` | Correlated response covering all four technologies |
+| `06-language-model-planning.json` | Actual Ollama structured planning followed by real DVC execution |
 | `dvc-reproduction.json` | Original/restored hashes from a separate worktree |
 | `failure-01-*.json` | Validation failure, agent diagnosis and successful rerun |
 | `failure-02-*.json` | Failed readiness after configuration injection and restored rollout |

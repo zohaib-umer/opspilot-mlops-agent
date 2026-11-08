@@ -54,6 +54,12 @@ jobs:
           kubectl rollout status deployment/prediction-api -n mlops --timeout=180s
       - name: Exercise five conversations and inject failures
         run: python scripts/live_evidence.py
+      - name: Verify local language-model planning
+        run: |
+          docker run -d --name opspilot-ollama -p 127.0.0.1:11434:11434 ollama/ollama:0.6.8
+          for attempt in $(seq 1 30); do curl -fsS http://localhost:11434/api/tags && break || sleep 2; done
+          docker exec opspilot-ollama ollama pull qwen2.5:0.5b
+          python scripts/verify_planner.py
       - name: Collect diagnostics
         if: always()
         run: |

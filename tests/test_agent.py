@@ -211,3 +211,20 @@ def test_agent_api_requires_configured_key(monkeypatch):
         assert client.get("/tools").status_code == 401
         assert client.get("/tools", headers={"X-API-Key": "wrong"}).status_code == 401
         assert client.get("/tools", headers={"X-API-Key": "test-key"}).status_code == 200
+
+
+def test_failed_workflow_requests_logs_only_for_executed_tasks():
+    logs = Mock(return_value={"content": "validation rejected missing target"})
+    registry = {
+        "airflow.dags": lambda a: {"dags": []},
+        "airflow.runs": lambda a: {"dag_runs": [{"dag_run_id": "failed-run", "state": "failed"}]},
+        "airflow.tasks": lambda a: {"failed_tasks": [
+            {"task_id": "validation", "state": "failed", "try_number": 3},
+            {"task_id": "training", "state": "upstream_failed", "try_number": 0},
+        ]},
+        "airflow.logs": logs,
+    }
+    response = Orchestrator(settings(), registry).chat(ChatRequest(message="Check training status"))
+    logs.assert_called_once()
+    assert logs.call_args.args[0].task_id == "validation"
+    assert not response.uncertainties
