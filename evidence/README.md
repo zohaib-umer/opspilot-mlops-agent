@@ -1,5 +1,7 @@
 # Verification evidence
 
+Start with [verified execution results](VERIFICATION.md) for the measured outcomes and direct links to the five conversations, both recovered failures and the reproducible dataset reference.
+
 The **Live infrastructure verification** workflow exports actual responses from DVC/Git, MLflow, Airflow and Kubernetes into the `live-infrastructure-evidence` artifact. `execution.json` records the tested commit, capture time and environment. Files under `live/`, when present, are downloaded exports of that run.
 
 | Record | Purpose |

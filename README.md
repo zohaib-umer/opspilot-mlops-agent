@@ -204,7 +204,7 @@ pytest -q
 
 Ordinary CI mocks external services. It checks tool selection and execution, timeouts, service failures, invalid input, provenance, authentication, mutation permissions, deterministic training, quality gates and inference readiness.
 
-Run **Actions → Live infrastructure verification → Run workflow** to start actual MLflow and Airflow services, train a model, deploy it to kind, execute five conversations, reproduce a DVC dataset and recover from two injected failures. Download the `live-infrastructure-evidence` artifact for recorded requests, responses and service state.
+Run **Actions → Live infrastructure verification → Run workflow** with scope `all` to start actual MLflow and Airflow services, train a model, deploy it to kind, execute five conversations, reproduce a DVC dataset and recover from two injected failures. A separate runner verifies Ollama planning to keep its model runtime independent of the infrastructure workload. Choose `infrastructure` or `planner` to rerun only that component. Download `live-infrastructure-evidence` and `language-model-evidence` for recorded requests, responses and service state.
 
 ## Repository guide
 

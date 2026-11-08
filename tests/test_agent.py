@@ -228,3 +228,21 @@ def test_failed_workflow_requests_logs_only_for_executed_tasks():
     logs.assert_called_once()
     assert logs.call_args.args[0].task_id == "validation"
     assert not response.uncertainties
+
+
+def test_retiring_pod_does_not_make_recovered_deployment_unhealthy():
+    logs = Mock()
+    registry = {
+        "kubernetes.deployments": lambda a: {"deployments": []},
+        "kubernetes.pods": lambda a: {"pods": [
+            {"name": "ready", "ready": True, "restarts": 0, "phase": "Running"},
+            {"name": "retiring", "ready": False, "restarts": 0, "phase": "Running", "terminating": True},
+        ]},
+        "kubernetes.services": lambda a: {"services": []},
+        "kubernetes.events": lambda a: {"events": []},
+        "kubernetes.logs": logs,
+    }
+    reply = Orchestrator(settings(), registry).chat(ChatRequest(message="Check deployment health"))
+    assert "Observed 1 active application Pods; 1 ready." in reply.facts
+    logs.assert_not_called()
+    assert not reply.recommendations

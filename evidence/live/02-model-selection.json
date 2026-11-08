@@ -1,0 +1,105 @@
+{
+  "request": {
+    "message": "Find the best recent model based on f1",
+    "arguments": {
+      "revision": "HEAD",
+      "other_revision": "HEAD",
+      "run_id": null,
+      "run_ids": [],
+      "experiment_ids": [],
+      "metric": "f1",
+      "direction": "max",
+      "limit": 5,
+      "dag_id": "training_pipeline",
+      "task_id": null,
+      "try_number": 1,
+      "pod": null,
+      "namespace": "mlops",
+      "model_name": "iris-classifier"
+    },
+    "confirmation": null
+  },
+  "response": {
+    "request_id": "64ae56ca3b2949529d05545312fc3f25",
+    "facts": [
+      "Best of 5 recent runs by f1 (max): 02b8753f9a694a008e897f9d5160bb78 = 0.9229629629629629. This is a candidate, not a release approval."
+    ],
+    "uncertainties": [],
+    "recommendations": [],
+    "evidence": [
+      {
+        "tool": "mlflow.best",
+        "status": "ok",
+        "data": {
+          "selected": {
+            "run_id": "02b8753f9a694a008e897f9d5160bb78",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time": 1794133453946,
+            "metrics": {
+              "f1": 0.9229629629629629,
+              "accuracy": 0.9210526315789473
+            },
+            "params": {
+              "C": "1.0",
+              "random_state": "42",
+              "test_size": "0.25",
+              "estimator": "StandardScaler+LogisticRegression"
+            },
+            "tags": {
+              "mlflow.user": "runner",
+              "mlflow.source.name": "/home/runner/work/assignment-03-mlops-agent/assignment-03-mlops-agent/training/train.py",
+              "mlflow.source.type": "LOCAL",
+              "mlflow.source.git.commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+              "mlflow.runName": "upbeat-doe-79",
+              "git.commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+              "dvc.md5": "4224576f0267bf88902f87f0f6200967",
+              "dvc.path": "data/iris.csv",
+              "quality_gate": "passed",
+              "mlflow.log-model.history": "[{\"run_id\": \"02b8753f9a694a008e897f9d5160bb78\", \"artifact_path\": \"model\", \"utc_time_created\": \"2026-11-08 10:24:14.792228\", \"model_uuid\": \"b7db0bea93c147698eac351ac65c56cf\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.18\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.6.1\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+              "quality_gate.threshold": "0.9"
+            }
+          },
+          "comparison": [
+            {
+              "run_id": "02b8753f9a694a008e897f9d5160bb78",
+              "experiment_id": "1",
+              "status": "FINISHED",
+              "start_time": 1794133453946,
+              "metrics": {
+                "f1": 0.9229629629629629,
+                "accuracy": 0.9210526315789473
+              },
+              "params": {
+                "C": "1.0",
+                "random_state": "42",
+                "test_size": "0.25",
+                "estimator": "StandardScaler+LogisticRegression"
+              },
+              "tags": {
+                "mlflow.user": "runner",
+                "mlflow.source.name": "/home/runner/work/assignment-03-mlops-agent/assignment-03-mlops-agent/training/train.py",
+                "mlflow.source.type": "LOCAL",
+                "mlflow.source.git.commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+                "mlflow.runName": "upbeat-doe-79",
+                "git.commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+                "dvc.md5": "4224576f0267bf88902f87f0f6200967",
+                "dvc.path": "data/iris.csv",
+                "quality_gate": "passed",
+                "mlflow.log-model.history": "[{\"run_id\": \"02b8753f9a694a008e897f9d5160bb78\", \"artifact_path\": \"model\", \"utc_time_created\": \"2026-11-08 10:24:14.792228\", \"model_uuid\": \"b7db0bea93c147698eac351ac65c56cf\", \"flavors\": {\"python_function\": {\"model_path\": \"model.pkl\", \"predict_fn\": \"predict\", \"loader_module\": \"mlflow.sklearn\", \"python_version\": \"3.11.18\", \"env\": {\"conda\": \"conda.yaml\", \"virtualenv\": \"python_env.yaml\"}}, \"sklearn\": {\"pickled_model\": \"model.pkl\", \"sklearn_version\": \"1.6.1\", \"serialization_format\": \"cloudpickle\", \"code\": null}}}]",
+                "quality_gate.threshold": "0.9"
+              }
+            }
+          ],
+          "metric": "f1",
+          "direction": "max",
+          "window": 5,
+          "selection_basis": "Metric ranking within recent runs; deployment needs a passed gate."
+        },
+        "error": null,
+        "duration_ms": 70.11,
+        "request_id": "64ae56ca3b2949529d05545312fc3f25"
+      }
+    ]
+  }
+}

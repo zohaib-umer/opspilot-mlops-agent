@@ -1,0 +1,442 @@
+{
+  "request": {
+    "message": "Check Kubernetes deployment health",
+    "arguments": {
+      "revision": "HEAD",
+      "other_revision": "HEAD",
+      "run_id": null,
+      "run_ids": [],
+      "experiment_ids": [],
+      "metric": "f1",
+      "direction": "max",
+      "limit": 5,
+      "dag_id": "training_pipeline",
+      "task_id": null,
+      "try_number": 1,
+      "pod": null,
+      "namespace": "mlops",
+      "model_name": "iris-classifier"
+    },
+    "confirmation": null
+  },
+  "response": {
+    "request_id": "be6b4a8a53d74b2d81bab3d86cb45204",
+    "facts": [
+      "Deployment prediction-api: 2/2 ready; image=opspilot-inference:1.0.0.",
+      "Observed 2 application Pods; 2 ready.",
+      "kubernetes.services returned recorded evidence.",
+      "Kubernetes event ScalingReplicaSet on prediction-api: Scaled up replica set prediction-api-8575876864 from 0 to 2",
+      "Kubernetes event ScalingReplicaSet on prediction-api: Scaled up replica set prediction-api-5c9468fc8f from 0 to 1",
+      "Kubernetes event ScalingReplicaSet on prediction-api: Scaled down replica set prediction-api-8575876864 from 2 to 1",
+      "Kubernetes event ScalingReplicaSet on prediction-api: Scaled up replica set prediction-api-5c9468fc8f from 1 to 2",
+      "Kubernetes event ScalingReplicaSet on prediction-api: Scaled down replica set prediction-api-8575876864 from 1 to 0"
+    ],
+    "uncertainties": [],
+    "recommendations": [],
+    "evidence": [
+      {
+        "tool": "kubernetes.deployments",
+        "status": "ok",
+        "data": {
+          "deployments": [
+            {
+              "name": "prediction-api",
+              "desired": 2,
+              "ready": 2,
+              "updated": 2,
+              "generation": 2,
+              "observed_generation": 2,
+              "images": [
+                "opspilot-inference:1.0.0"
+              ],
+              "annotations": {
+                "opspilot/model-run-id": "02b8753f9a694a008e897f9d5160bb78",
+                "opspilot/model-version": "1"
+              }
+            }
+          ]
+        },
+        "error": null,
+        "duration_ms": 17.97,
+        "request_id": "be6b4a8a53d74b2d81bab3d86cb45204"
+      },
+      {
+        "tool": "kubernetes.pods",
+        "status": "ok",
+        "data": {
+          "pods": [
+            {
+              "name": "prediction-api-5c9468fc8f-k2tj6",
+              "phase": "Running",
+              "ready": true,
+              "restarts": 0,
+              "conditions": [
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:35+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "PodReadyToStartContainers"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:34+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "Initialized"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:45+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "Ready"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:45+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "ContainersReady"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:34+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "PodScheduled"
+                }
+              ],
+              "containers": [
+                {
+                  "allocated_resources": null,
+                  "allocated_resources_status": null,
+                  "container_id": "containerd://4450187ff716b183851be1e414393b31be8faeed4dea32d4cb50de9bb2c7b7ae",
+                  "image": "docker.io/library/opspilot-inference:1.0.0",
+                  "image_id": "sha256:5dd5472af257bb9bee45e11f52b793d0bf00095cc65e0d45673c4bfbd2e7e8bf",
+                  "last_state": {
+                    "running": null,
+                    "terminated": null,
+                    "waiting": null
+                  },
+                  "name": "prediction-api",
+                  "ready": true,
+                  "resources": null,
+                  "restart_count": 0,
+                  "started": true,
+                  "state": {
+                    "running": {
+                      "started_at": "2026-11-08 10:27:34+00:00"
+                    },
+                    "terminated": null,
+                    "waiting": null
+                  },
+                  "user": null,
+                  "volume_mounts": null
+                }
+              ]
+            },
+            {
+              "name": "prediction-api-5c9468fc8f-z9czt",
+              "phase": "Running",
+              "ready": true,
+              "restarts": 0,
+              "conditions": [
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:22+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "PodReadyToStartContainers"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:21+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "Initialized"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:34+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "Ready"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:34+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "ContainersReady"
+                },
+                {
+                  "last_probe_time": null,
+                  "last_transition_time": "2026-11-08 10:27:21+00:00",
+                  "message": null,
+                  "reason": null,
+                  "status": "True",
+                  "type": "PodScheduled"
+                }
+              ],
+              "containers": [
+                {
+                  "allocated_resources": null,
+                  "allocated_resources_status": null,
+                  "container_id": "containerd://40f7f6bee89ae38bcfc75f1d654b467b3562d97adf78a38c5a5721658b7bc997",
+                  "image": "docker.io/library/opspilot-inference:1.0.0",
+                  "image_id": "sha256:5dd5472af257bb9bee45e11f52b793d0bf00095cc65e0d45673c4bfbd2e7e8bf",
+                  "last_state": {
+                    "running": null,
+                    "terminated": null,
+                    "waiting": null
+                  },
+                  "name": "prediction-api",
+                  "ready": true,
+                  "resources": null,
+                  "restart_count": 0,
+                  "started": true,
+                  "state": {
+                    "running": {
+                      "started_at": "2026-11-08 10:27:21+00:00"
+                    },
+                    "terminated": null,
+                    "waiting": null
+                  },
+                  "user": null,
+                  "volume_mounts": null
+                }
+              ]
+            }
+          ]
+        },
+        "error": null,
+        "duration_ms": 15.34,
+        "request_id": "be6b4a8a53d74b2d81bab3d86cb45204"
+      },
+      {
+        "tool": "kubernetes.services",
+        "status": "ok",
+        "data": {
+          "services": [
+            {
+              "name": "prediction-api",
+              "type": "ClusterIP",
+              "cluster_ip": "10.96.93.204",
+              "selector": {
+                "app": "prediction-api"
+              },
+              "ports": [
+                {
+                  "app_protocol": null,
+                  "name": null,
+                  "node_port": null,
+                  "port": 80,
+                  "protocol": "TCP",
+                  "target_port": 8000
+                }
+              ]
+            }
+          ]
+        },
+        "error": null,
+        "duration_ms": 4.54,
+        "request_id": "be6b4a8a53d74b2d81bab3d86cb45204"
+      },
+      {
+        "tool": "kubernetes.events",
+        "status": "ok",
+        "data": {
+          "events": [
+            {
+              "reason": "Scheduled",
+              "message": "Successfully assigned mlops/prediction-api-5c9468fc8f-k2tj6 to opspilot-control-plane",
+              "object": "prediction-api-5c9468fc8f-k2tj6",
+              "count": 1
+            },
+            {
+              "reason": "Pulled",
+              "message": "Container image \"opspilot-inference:1.0.0\" already present on machine",
+              "object": "prediction-api-5c9468fc8f-k2tj6",
+              "count": 1
+            },
+            {
+              "reason": "Created",
+              "message": "Created container: prediction-api",
+              "object": "prediction-api-5c9468fc8f-k2tj6",
+              "count": 1
+            },
+            {
+              "reason": "Started",
+              "message": "Started container prediction-api",
+              "object": "prediction-api-5c9468fc8f-k2tj6",
+              "count": 1
+            },
+            {
+              "reason": "Scheduled",
+              "message": "Successfully assigned mlops/prediction-api-5c9468fc8f-z9czt to opspilot-control-plane",
+              "object": "prediction-api-5c9468fc8f-z9czt",
+              "count": 1
+            },
+            {
+              "reason": "Pulled",
+              "message": "Container image \"opspilot-inference:1.0.0\" already present on machine",
+              "object": "prediction-api-5c9468fc8f-z9czt",
+              "count": 1
+            },
+            {
+              "reason": "Created",
+              "message": "Created container: prediction-api",
+              "object": "prediction-api-5c9468fc8f-z9czt",
+              "count": 1
+            },
+            {
+              "reason": "Started",
+              "message": "Started container prediction-api",
+              "object": "prediction-api-5c9468fc8f-z9czt",
+              "count": 1
+            },
+            {
+              "reason": "SuccessfulCreate",
+              "message": "Created pod: prediction-api-5c9468fc8f-z9czt",
+              "object": "prediction-api-5c9468fc8f",
+              "count": 1
+            },
+            {
+              "reason": "SuccessfulCreate",
+              "message": "Created pod: prediction-api-5c9468fc8f-k2tj6",
+              "object": "prediction-api-5c9468fc8f",
+              "count": 1
+            },
+            {
+              "reason": "Scheduled",
+              "message": "Successfully assigned mlops/prediction-api-8575876864-8vkhn to opspilot-control-plane",
+              "object": "prediction-api-8575876864-8vkhn",
+              "count": 1
+            },
+            {
+              "reason": "Pulled",
+              "message": "Container image \"opspilot-inference:1.0.0\" already present on machine",
+              "object": "prediction-api-8575876864-8vkhn",
+              "count": 1
+            },
+            {
+              "reason": "Created",
+              "message": "Created container: prediction-api",
+              "object": "prediction-api-8575876864-8vkhn",
+              "count": 1
+            },
+            {
+              "reason": "Started",
+              "message": "Started container prediction-api",
+              "object": "prediction-api-8575876864-8vkhn",
+              "count": 1
+            },
+            {
+              "reason": "Killing",
+              "message": "Stopping container prediction-api",
+              "object": "prediction-api-8575876864-8vkhn",
+              "count": 1
+            },
+            {
+              "reason": "Scheduled",
+              "message": "Successfully assigned mlops/prediction-api-8575876864-cwcjx to opspilot-control-plane",
+              "object": "prediction-api-8575876864-cwcjx",
+              "count": 1
+            },
+            {
+              "reason": "Pulled",
+              "message": "Container image \"opspilot-inference:1.0.0\" already present on machine",
+              "object": "prediction-api-8575876864-cwcjx",
+              "count": 1
+            },
+            {
+              "reason": "Created",
+              "message": "Created container: prediction-api",
+              "object": "prediction-api-8575876864-cwcjx",
+              "count": 1
+            },
+            {
+              "reason": "Started",
+              "message": "Started container prediction-api",
+              "object": "prediction-api-8575876864-cwcjx",
+              "count": 1
+            },
+            {
+              "reason": "Killing",
+              "message": "Stopping container prediction-api",
+              "object": "prediction-api-8575876864-cwcjx",
+              "count": 1
+            },
+            {
+              "reason": "SuccessfulCreate",
+              "message": "Created pod: prediction-api-8575876864-cwcjx",
+              "object": "prediction-api-8575876864",
+              "count": 1
+            },
+            {
+              "reason": "SuccessfulCreate",
+              "message": "Created pod: prediction-api-8575876864-8vkhn",
+              "object": "prediction-api-8575876864",
+              "count": 1
+            },
+            {
+              "reason": "SuccessfulDelete",
+              "message": "Deleted pod: prediction-api-8575876864-cwcjx",
+              "object": "prediction-api-8575876864",
+              "count": 1
+            },
+            {
+              "reason": "SuccessfulDelete",
+              "message": "Deleted pod: prediction-api-8575876864-8vkhn",
+              "object": "prediction-api-8575876864",
+              "count": 1
+            },
+            {
+              "reason": "ScalingReplicaSet",
+              "message": "Scaled up replica set prediction-api-8575876864 from 0 to 2",
+              "object": "prediction-api",
+              "count": 1
+            },
+            {
+              "reason": "ScalingReplicaSet",
+              "message": "Scaled up replica set prediction-api-5c9468fc8f from 0 to 1",
+              "object": "prediction-api",
+              "count": 1
+            },
+            {
+              "reason": "ScalingReplicaSet",
+              "message": "Scaled down replica set prediction-api-8575876864 from 2 to 1",
+              "object": "prediction-api",
+              "count": 1
+            },
+            {
+              "reason": "ScalingReplicaSet",
+              "message": "Scaled up replica set prediction-api-5c9468fc8f from 1 to 2",
+              "object": "prediction-api",
+              "count": 1
+            },
+            {
+              "reason": "ScalingReplicaSet",
+              "message": "Scaled down replica set prediction-api-8575876864 from 1 to 0",
+              "object": "prediction-api",
+              "count": 1
+            }
+          ]
+        },
+        "error": null,
+        "duration_ms": 17.94,
+        "request_id": "be6b4a8a53d74b2d81bab3d86cb45204"
+      }
+    ]
+  }
+}

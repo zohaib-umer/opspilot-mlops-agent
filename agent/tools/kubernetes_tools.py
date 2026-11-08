@@ -26,6 +26,7 @@ class KubernetesTools:
         for p in pods.items:
             containers = p.status.container_statuses or []
             records.append({"name": p.metadata.name, "phase": p.status.phase,
+                            "terminating": p.metadata.deletion_timestamp is not None,
                             "ready": bool(containers) and all(c.ready for c in containers),
                             "restarts": sum(c.restart_count for c in containers),
                             "conditions": [c.to_dict() for c in (p.status.conditions or [])],

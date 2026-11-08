@@ -172,8 +172,8 @@ class Orchestrator:
             elif name == "dvc.status" and data.get("changes"):
                 facts.append("DVC reports changed workspace dependencies or outputs; see evidence.")
             elif name == "kubernetes.pods":
-                pods = data.get("pods", [])
-                facts.append(f"Observed {len(pods)} application Pods; {sum(p['ready'] for p in pods)} ready.")
+                pods = [p for p in data.get("pods", []) if not p.get("terminating", False)]
+                facts.append(f"Observed {len(pods)} active application Pods; {sum(p['ready'] for p in pods)} ready.")
                 for pod in pods:
                     if not pod["ready"] or pod["restarts"]:
                         facts.append(f"Pod {pod['name']}: phase={pod['phase']}, restarts={pod['restarts']}.")

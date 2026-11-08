@@ -1,0 +1,701 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      opspilot/model-run-id: 02b8753f9a694a008e897f9d5160bb78
+      opspilot/model-version: "1"
+    creationTimestamp: "2026-11-08T10:27:34Z"
+    generateName: prediction-api-5c9468fc8f-
+    labels:
+      app: prediction-api
+      pod-template-hash: 5c9468fc8f
+    name: prediction-api-5c9468fc8f-k2tj6
+    namespace: mlops
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: prediction-api-5c9468fc8f
+      uid: f1d2d866-5e5a-47db-9bae-386f85937c55
+    resourceVersion: "691"
+    uid: 1bb6952d-892e-49ed-8872-c61fe60def64
+  spec:
+    automountServiceAccountToken: false
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: prediction-config
+      image: opspilot-inference:1.0.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /health/live
+          port: 8000
+          scheme: HTTP
+        initialDelaySeconds: 20
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: prediction-api
+      ports:
+      - containerPort: 8000
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /health/ready
+          port: 8000
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: "1"
+          memory: 768Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: opspilot-control-plane
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 10001
+      runAsNonRoot: true
+      runAsUser: 10001
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:35Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:34Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:45Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:45Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:34Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://4450187ff716b183851be1e414393b31be8faeed4dea32d4cb50de9bb2c7b7ae
+      image: docker.io/library/opspilot-inference:1.0.0
+      imageID: sha256:5dd5472af257bb9bee45e11f52b793d0bf00095cc65e0d45673c4bfbd2e7e8bf
+      lastState: {}
+      name: prediction-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-11-08T10:27:34Z"
+    hostIP: 172.19.0.2
+    hostIPs:
+    - ip: 172.19.0.2
+    phase: Running
+    podIP: 10.244.0.8
+    podIPs:
+    - ip: 10.244.0.8
+    qosClass: Burstable
+    startTime: "2026-11-08T10:27:34Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      opspilot/model-run-id: 02b8753f9a694a008e897f9d5160bb78
+      opspilot/model-version: "1"
+    creationTimestamp: "2026-11-08T10:27:21Z"
+    generateName: prediction-api-5c9468fc8f-
+    labels:
+      app: prediction-api
+      pod-template-hash: 5c9468fc8f
+    name: prediction-api-5c9468fc8f-z9czt
+    namespace: mlops
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: prediction-api-5c9468fc8f
+      uid: f1d2d866-5e5a-47db-9bae-386f85937c55
+    resourceVersion: "643"
+    uid: 41bb21ad-02f7-4205-a170-3f751bd69270
+  spec:
+    automountServiceAccountToken: false
+    containers:
+    - envFrom:
+      - configMapRef:
+          name: prediction-config
+      image: opspilot-inference:1.0.0
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /health/live
+          port: 8000
+          scheme: HTTP
+        initialDelaySeconds: 20
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      name: prediction-api
+      ports:
+      - containerPort: 8000
+        protocol: TCP
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /health/ready
+          port: 8000
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        successThreshold: 1
+        timeoutSeconds: 1
+      resources:
+        limits:
+          cpu: "1"
+          memory: 768Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+          - ALL
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: opspilot-control-plane
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 10001
+      runAsNonRoot: true
+      runAsUser: 10001
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:22Z"
+      status: "True"
+      type: PodReadyToStartContainers
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:21Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:34Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:34Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2026-11-08T10:27:21Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://40f7f6bee89ae38bcfc75f1d654b467b3562d97adf78a38c5a5721658b7bc997
+      image: docker.io/library/opspilot-inference:1.0.0
+      imageID: sha256:5dd5472af257bb9bee45e11f52b793d0bf00095cc65e0d45673c4bfbd2e7e8bf
+      lastState: {}
+      name: prediction-api
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2026-11-08T10:27:21Z"
+    hostIP: 172.19.0.2
+    hostIPs:
+    - ip: 172.19.0.2
+    phase: Running
+    podIP: 10.244.0.7
+    podIPs:
+    - ip: 10.244.0.7
+    qosClass: Burstable
+    startTime: "2026-11-08T10:27:21Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"prediction-api"},"name":"prediction-api","namespace":"mlops"},"spec":{"ports":[{"port":80,"targetPort":8000}],"selector":{"app":"prediction-api"},"type":"ClusterIP"}}
+    creationTimestamp: "2026-11-08T10:27:20Z"
+    labels:
+      app: prediction-api
+    name: prediction-api
+    namespace: mlops
+    resourceVersion: "583"
+    uid: c1e6e508-9836-4b6e-aa83-66cacba45b7c
+  spec:
+    clusterIP: 10.96.93.204
+    clusterIPs:
+    - 10.96.93.204
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8000
+    selector:
+      app: prediction-api
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "4"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"prediction-api"},"name":"prediction-api","namespace":"mlops"},"spec":{"replicas":2,"selector":{"matchLabels":{"app":"prediction-api"}},"template":{"metadata":{"labels":{"app":"prediction-api"}},"spec":{"automountServiceAccountToken":false,"containers":[{"envFrom":[{"configMapRef":{"name":"prediction-config"}}],"image":"opspilot-inference:1.0.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/health/live","port":8000},"initialDelaySeconds":20,"periodSeconds":10},"name":"prediction-api","ports":[{"containerPort":8000}],"readinessProbe":{"httpGet":{"path":"/health/ready","port":8000},"initialDelaySeconds":10,"periodSeconds":5},"resources":{"limits":{"cpu":"1","memory":"768Mi"},"requests":{"cpu":"100m","memory":"256Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]}}}],"securityContext":{"fsGroup":10001,"runAsNonRoot":true,"runAsUser":10001}}}}}
+    creationTimestamp: "2026-11-08T10:27:20Z"
+    generation: 4
+    labels:
+      app: prediction-api
+    name: prediction-api
+    namespace: mlops
+    resourceVersion: "939"
+    uid: 0181bb8f-4a7f-46f9-8a7d-5972ece6b649
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: prediction-api
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          opspilot/model-run-id: 02b8753f9a694a008e897f9d5160bb78
+          opspilot/model-version: "1"
+        creationTimestamp: null
+        labels:
+          app: prediction-api
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: prediction-config
+          image: opspilot-inference:1.0.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/live
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: prediction-api
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/ready
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "1"
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 10001
+          runAsNonRoot: true
+          runAsUser: 10001
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2026-11-08T10:27:32Z"
+      lastUpdateTime: "2026-11-08T10:27:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-11-08T10:27:20Z"
+      lastUpdateTime: "2026-11-08T10:30:15Z"
+      message: ReplicaSet "prediction-api-5c9468fc8f" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 4
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "4"
+      deployment.kubernetes.io/revision-history: "2"
+    creationTimestamp: "2026-11-08T10:27:21Z"
+    generation: 2
+    labels:
+      app: prediction-api
+      pod-template-hash: 5c9468fc8f
+    name: prediction-api-5c9468fc8f
+    namespace: mlops
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: prediction-api
+      uid: 0181bb8f-4a7f-46f9-8a7d-5972ece6b649
+    resourceVersion: "926"
+    uid: f1d2d866-5e5a-47db-9bae-386f85937c55
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        app: prediction-api
+        pod-template-hash: 5c9468fc8f
+    template:
+      metadata:
+        annotations:
+          opspilot/model-run-id: 02b8753f9a694a008e897f9d5160bb78
+          opspilot/model-version: "1"
+        creationTimestamp: null
+        labels:
+          app: prediction-api
+          pod-template-hash: 5c9468fc8f
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: prediction-config
+          image: opspilot-inference:1.0.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/live
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: prediction-api
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/ready
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "1"
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 10001
+          runAsNonRoot: true
+          runAsUser: 10001
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 2
+    readyReplicas: 2
+    replicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2026-11-08T10:27:20Z"
+    generation: 3
+    labels:
+      app: prediction-api
+      pod-template-hash: "8575876864"
+    name: prediction-api-8575876864
+    namespace: mlops
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: prediction-api
+      uid: 0181bb8f-4a7f-46f9-8a7d-5972ece6b649
+    resourceVersion: "704"
+    uid: 9c80fb84-41e4-44fe-830d-3795e2353ddb
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: prediction-api
+        pod-template-hash: "8575876864"
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: prediction-api
+          pod-template-hash: "8575876864"
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: prediction-config
+          image: opspilot-inference:1.0.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/live
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: prediction-api
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/ready
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "1"
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 10001
+          runAsNonRoot: true
+          runAsUser: 10001
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 3
+    replicas: 0
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "3"
+    creationTimestamp: "2026-11-08T10:29:57Z"
+    generation: 2
+    labels:
+      app: prediction-api
+      pod-template-hash: c7668f487
+    name: prediction-api-c7668f487
+    namespace: mlops
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: prediction-api
+      uid: 0181bb8f-4a7f-46f9-8a7d-5972ece6b649
+    resourceVersion: "938"
+    uid: 94c91301-435e-45ae-866f-13ea695c4a7f
+  spec:
+    replicas: 0
+    selector:
+      matchLabels:
+        app: prediction-api
+        pod-template-hash: c7668f487
+    template:
+      metadata:
+        annotations:
+          opspilot/model-run-id: 02b8753f9a694a008e897f9d5160bb78
+          opspilot/model-version: "1"
+        creationTimestamp: null
+        labels:
+          app: prediction-api
+          pod-template-hash: c7668f487
+      spec:
+        automountServiceAccountToken: false
+        containers:
+        - env:
+          - name: MODEL_DIR
+            value: /missing
+          envFrom:
+          - configMapRef:
+              name: prediction-config
+          image: opspilot-inference:1.0.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/live
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: prediction-api
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health/ready
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "1"
+              memory: 768Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 10001
+          runAsNonRoot: true
+          runAsUser: 10001
+        terminationGracePeriodSeconds: 30
+  status:
+    observedGeneration: 2
+    replicas: 0
+kind: List
+metadata:
+  resourceVersion: ""

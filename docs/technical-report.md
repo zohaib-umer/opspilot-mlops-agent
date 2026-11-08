@@ -24,6 +24,8 @@ The FastAPI container runs as a non-root user in a two-replica Deployment behind
 
 The live verification script saves the actual request, response and tool results for each conversation. Files are indexed in [the evidence directory](../evidence/README.md). Successful pipeline completion is recorded separately from the trigger response.
 
+The completed infrastructure demonstration is summarized in [verified execution results](../evidence/VERIFICATION.md). All five training tasks succeeded; the deliberate validation failure exhausted three attempts and blocked all four downstream stages. Its recovery run succeeded. The deployed service returned a passed model gate and two ready replicas after restoration.
+
 | Scenario | Request | Evidence export |
 |---|---|---|
 | Dataset provenance | Identify the current dataset version and reproduce it | `01-dataset-provenance.json`, `dvc-reproduction.json` |
@@ -59,6 +61,12 @@ A sixth verification uses an actual Ollama `qwen2.5:0.5b` model to produce a sch
 ## Testing and engineering controls
 
 The test suite exercises plan selection, real function execution with mocked remote responses, service errors, timeout handling, input validation, namespace authorization, target-specific confirmation, missing provenance, secret redaction, deterministic training, failed quality gates and prediction readiness. CI runs linting and pytest on pull requests. The separate integration workflow runs actual services and exports evidence as a downloadable artifact.
+
+## Unexpected failure investigation: dependency incompatibility
+
+An initial real training run failed when MLflow 2.22 attempted to import `FallbackAsyncAdaptedQueuePool` from an unconstrained SQLAlchemy 2.1 installation. This failed before experiment creation, so no successful model result was reported. The host application now pins SQLAlchemy 2.0.40, while the separate Airflow 3.0.3 image pins 1.4.54 to satisfy Airflow's own dependency requirement. The complete application dependency graph is recorded in `uv.lock`.
+
+The repaired local run created a registered model with macro F1 **0.92296** and accuracy **0.92105**, passing the **0.90** gate. Its exported record is [local-training.json](../evidence/local-training.json). This investigation demonstrates why independent service environments and real training checks supplement mocked API tests.
 
 ## Known limitations and proposed improvements
 

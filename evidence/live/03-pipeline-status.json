@@ -1,0 +1,124 @@
+{
+  "request": {
+    "message": "Check training pipeline status",
+    "arguments": {
+      "revision": "HEAD",
+      "other_revision": "HEAD",
+      "run_id": null,
+      "run_ids": [],
+      "experiment_ids": [],
+      "metric": "f1",
+      "direction": "max",
+      "limit": 5,
+      "dag_id": "training_pipeline",
+      "task_id": null,
+      "try_number": 1,
+      "pod": null,
+      "namespace": "mlops",
+      "model_name": "iris-classifier"
+    },
+    "confirmation": null
+  },
+  "response": {
+    "request_id": "54c0a611901b4fbb9db4656123b027ba",
+    "facts": [
+      "airflow.dags returned recorded evidence.",
+      "Latest training workflow opspilot__b79f8fdb6489408593ca782785ac1e13: success."
+    ],
+    "uncertainties": [],
+    "recommendations": [],
+    "evidence": [
+      {
+        "tool": "airflow.dags",
+        "status": "ok",
+        "data": {
+          "dags": [
+            {
+              "dag_id": "training_pipeline",
+              "dag_display_name": "training_pipeline",
+              "is_paused": false,
+              "is_stale": false,
+              "last_parsed_time": "2026-11-08T10:28:15.006283Z",
+              "last_expired": null,
+              "bundle_name": "dags-folder",
+              "bundle_version": null,
+              "relative_fileloc": "training_pipeline.py",
+              "fileloc": "/opt/project/dags/training_pipeline.py",
+              "description": null,
+              "timetable_summary": null,
+              "timetable_description": "Never, external triggers only",
+              "tags": [
+                {
+                  "name": "training",
+                  "dag_id": "training_pipeline"
+                },
+                {
+                  "name": "opspilot",
+                  "dag_id": "training_pipeline"
+                }
+              ],
+              "max_active_tasks": 16,
+              "max_active_runs": 1,
+              "max_consecutive_failed_dag_runs": 0,
+              "has_task_concurrency_limits": false,
+              "has_import_errors": false,
+              "next_dagrun_logical_date": null,
+              "next_dagrun_data_interval_start": null,
+              "next_dagrun_data_interval_end": null,
+              "next_dagrun_run_after": null,
+              "owners": [
+                "airflow"
+              ],
+              "file_token": "[REDACTED]"
+            }
+          ],
+          "total_entries": 1
+        },
+        "error": null,
+        "duration_ms": 23.48,
+        "request_id": "54c0a611901b4fbb9db4656123b027ba"
+      },
+      {
+        "tool": "airflow.runs",
+        "status": "ok",
+        "data": {
+          "dag_runs": [
+            {
+              "dag_run_id": "opspilot__b79f8fdb6489408593ca782785ac1e13",
+              "dag_id": "training_pipeline",
+              "logical_date": "2026-11-08T10:27:51.763998Z",
+              "queued_at": "2026-11-08T10:27:51.797087Z",
+              "start_date": "2026-11-08T10:27:52.884666Z",
+              "end_date": "2026-11-08T10:28:32.267557Z",
+              "data_interval_start": "2026-11-08T10:27:51.763998Z",
+              "data_interval_end": "2026-11-08T10:27:51.763998Z",
+              "run_after": "2026-11-08T10:27:51.763998Z",
+              "last_scheduling_decision": "2026-11-08T10:28:32.265089Z",
+              "run_type": "manual",
+              "state": "success",
+              "triggered_by": "rest_api",
+              "conf": {},
+              "note": null,
+              "dag_versions": [
+                {
+                  "id": "01a1baaf-d56a-7005-aba2-9196a9e9c2f1",
+                  "version_number": 1,
+                  "dag_id": "training_pipeline",
+                  "bundle_name": "dags-folder",
+                  "bundle_version": null,
+                  "created_at": "2026-11-08T10:24:08.042103Z",
+                  "bundle_url": null
+                }
+              ],
+              "bundle_version": null
+            }
+          ],
+          "total_entries": 1
+        },
+        "error": null,
+        "duration_ms": 31.67,
+        "request_id": "54c0a611901b4fbb9db4656123b027ba"
+      }
+    ]
+  }
+}

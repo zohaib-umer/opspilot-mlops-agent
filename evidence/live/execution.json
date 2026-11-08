@@ -1,0 +1,6 @@
+{
+  "captured_at": "2026-11-08T10:27:50.943165+00:00",
+  "git_commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+  "environment": "GitHub Actions / Docker Compose / kind",
+  "mocked": false
+}

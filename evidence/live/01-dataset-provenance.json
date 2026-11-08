@@ -1,0 +1,117 @@
+{
+  "request": {
+    "message": "Identify the current dataset version and reproduce it",
+    "arguments": {
+      "revision": "HEAD",
+      "other_revision": "HEAD",
+      "run_id": null,
+      "run_ids": [],
+      "experiment_ids": [],
+      "metric": "f1",
+      "direction": "max",
+      "limit": 5,
+      "dag_id": "training_pipeline",
+      "task_id": null,
+      "try_number": 1,
+      "pod": null,
+      "namespace": "mlops",
+      "model_name": "iris-classifier"
+    },
+    "confirmation": null
+  },
+  "response": {
+    "request_id": "c63724c220c644b5bf2c24a652084a20",
+    "facts": [
+      "dvc.datasets returned recorded evidence.",
+      "Dataset references were read from Git commit 10f8f43164bfc83df9eae7df292ff744784931ba.",
+      "DVC reports changed workspace dependencies or outputs; see evidence.",
+      "dvc.reproduce returned recorded evidence."
+    ],
+    "uncertainties": [],
+    "recommendations": [],
+    "evidence": [
+      {
+        "tool": "dvc.datasets",
+        "status": "ok",
+        "data": {
+          "datasets": [
+            {
+              "metadata": "data/iris.csv.dvc",
+              "md5": "4224576f0267bf88902f87f0f6200967",
+              "size": 2757,
+              "hash": "md5",
+              "path": "iris.csv"
+            }
+          ]
+        },
+        "error": null,
+        "duration_ms": 3.49,
+        "request_id": "c63724c220c644b5bf2c24a652084a20"
+      },
+      {
+        "tool": "dvc.version",
+        "status": "ok",
+        "data": {
+          "git_commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+          "references": {
+            "data/iris.csv.dvc": {
+              "outs": [
+                {
+                  "md5": "4224576f0267bf88902f87f0f6200967",
+                  "size": 2757,
+                  "hash": "md5",
+                  "path": "iris.csv"
+                }
+              ]
+            }
+          }
+        },
+        "error": null,
+        "duration_ms": 6.52,
+        "request_id": "c63724c220c644b5bf2c24a652084a20"
+      },
+      {
+        "tool": "dvc.status",
+        "status": "ok",
+        "data": {
+          "changes": {
+            "train": [
+              {
+                "changed deps": {
+                  "data/iris.csv": "modified",
+                  "training/train.py": "modified"
+                }
+              },
+              {
+                "changed outs": {
+                  "artifacts/work/serving": "modified",
+                  "artifacts/work/metrics.json": "modified"
+                }
+              }
+            ]
+          }
+        },
+        "error": null,
+        "duration_ms": 727.89,
+        "request_id": "c63724c220c644b5bf2c24a652084a20"
+      },
+      {
+        "tool": "dvc.reproduce",
+        "status": "ok",
+        "data": {
+          "git_commit": "10f8f43164bfc83df9eae7df292ff744784931ba",
+          "commands": [
+            "git worktree add ../dataset-reproduction 10f8f43164bfc83df9eae7df292ff744784931ba",
+            "cd ../dataset-reproduction",
+            "dvc pull",
+            "dvc checkout"
+          ],
+          "note": "Run in a separate worktree with access to the configured DVC remote."
+        },
+        "error": null,
+        "duration_ms": 6.56,
+        "request_id": "c63724c220c644b5bf2c24a652084a20"
+      }
+    ]
+  }
+}
