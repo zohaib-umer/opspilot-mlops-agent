@@ -64,6 +64,7 @@ jobs:
         if: always()
         run: |
           mkdir -p evidence/live
+          python scripts/collect_diagnostics.py
           docker compose ps --format json > evidence/live/services.json 2>&1 || true
           kubectl get all -n mlops -o yaml > evidence/live/kubernetes.yaml 2>&1 || true
       - uses: actions/upload-artifact@v4
