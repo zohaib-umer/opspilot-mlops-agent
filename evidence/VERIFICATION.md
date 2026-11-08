@@ -1,6 +1,6 @@
 # Verified execution results
 
-## Real infrastructure demonstration
+## Real infrastructure verification
 
 The infrastructure scenarios were captured on **8 November 2026** from commit `10f8f43164bfc83df9eae7df292ff744784931ba` using actual Docker Compose services and a kind Kubernetes cluster. [The execution record](live/execution.json) identifies the environment and capture time. The source [GitHub run](https://github.com/zohaib-umer/assignment-03-mlops-agent/actions/runs/42471008440) completed the infrastructure scenarios; its subsequent, separate model-container download exhausted runner disk space. Language-model verification was moved to an independent runner.
 

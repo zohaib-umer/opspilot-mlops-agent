@@ -75,6 +75,6 @@ All tools accept the `ToolArgs` schema. `/tools` exports the complete JSON schem
 
 ## Deployment boundaries
 
-The agent is launched on the operator's machine and uses its restricted Kubernetes context. The prediction service runs in Kubernetes. Airflow and MLflow run in Compose for the reproducible demonstration. The training image is promoted manually after its gate; neither assessment nor model ranking automatically changes a deployment.
+The agent is launched on the operator's machine and uses its restricted Kubernetes context. The prediction service runs in Kubernetes. Airflow and MLflow run in Compose for reproducible execution. The training image is promoted manually after its gate; neither assessment nor model ranking automatically changes a deployment.
 
 Reference interfaces: [Airflow 3 public API](https://airflow.apache.org/docs/apache-airflow/3.0.3/security/api.html), [Airflow TaskFlow](https://airflow.apache.org/docs/apache-airflow/3.0.3/core-concepts/taskflow.html), [MLflow client](https://mlflow.org/docs/latest/api_reference/python_api/mlflow.client.html), and [DVC diff](https://dvc.org/doc/command-reference/diff).

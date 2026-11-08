@@ -10,7 +10,7 @@ The reference workload uses the 150-row Iris dataset, four numeric features and 
 
 ## Reproducibility and provenance
 
-The CSV is tracked through `data/iris.csv.dvc`. Training reads this metadata at `HEAD` and compares its hash with the actual dataset bytes before logging provenance. The live demonstration pushes the data to a local DVC remote, creates a detached worktree, pulls the data there and compares hashes. The export `dvc-reproduction.json` records the result.
+The CSV is tracked through `data/iris.csv.dvc`. Training reads this metadata at `HEAD` and compares its hash with the actual dataset bytes before logging provenance. Live verification pushes the data to a local DVC remote, creates a detached worktree, pulls the data there and compares hashes. The export `dvc-reproduction.json` records the result.
 
 The model-selection tool ranks only finished recent runs with a finite requested metric. It supports maximization (F1/accuracy) and minimization (loss). Its comparison window and direction are included in the response. Candidate selection remains separate from the release gate.
 
@@ -20,11 +20,11 @@ The Airflow 3 DAG has five dependent stages: validation, preprocessing, training
 
 The FastAPI container runs as a non-root user in a two-replica Deployment behind a ClusterIP Service. Requests and limits bound CPU/memory use. Liveness checks process availability; readiness requires an approved model to be loaded. A ConfigMap provides non-sensitive settings. Deployment annotations and the service version endpoint expose the model's recorded MLflow identity.
 
-## Five demonstration conversations and evidence
+## Five tested conversations and evidence
 
 The live verification script saves the actual request, response and tool results for each conversation. Files are indexed in [the evidence directory](../evidence/README.md). Successful pipeline completion is recorded separately from the trigger response.
 
-The completed infrastructure demonstration is summarized in [verified execution results](../evidence/VERIFICATION.md). All five training tasks succeeded; the deliberate validation failure exhausted three attempts and blocked all four downstream stages. Its recovery run succeeded. The deployed service returned a passed model gate and two ready replicas after restoration.
+The completed infrastructure verification is summarized in [verified execution results](../evidence/VERIFICATION.md). All five training tasks succeeded; the deliberate validation failure exhausted three attempts and blocked all four downstream stages. Its recovery run succeeded. The deployed service returned a passed model gate and two ready replicas after restoration.
 
 | Scenario | Request | Evidence export |
 |---|---|---|
@@ -50,7 +50,7 @@ A sixth verification uses an actual Ollama `qwen2.5:0.5b` model to produce a sch
 
 ## Failure investigation 2: failed readiness after configuration change
 
-**Injection:** the demonstration changes `MODEL_DIR` to `/missing` in the Deployment. New Pods start their API process but cannot load an approved model, so readiness returns HTTP 503.
+**Injection:** the failure test changes `MODEL_DIR` to `/missing` in the Deployment. New Pods start their API process but cannot load an approved model, so readiness returns HTTP 503.
 
 **Diagnosis:** the agent correlates desired/ready replica counts, Pod conditions, probe events and container logs. Liveness and readiness are deliberately separate; a running process does not prove prediction availability.
 
@@ -74,8 +74,8 @@ This section is included because the assignment explicitly requires it.
 
 | Current scope | Proposed improvement |
 |---|---|
-| The demonstration uses Iris and a single fixed holdout. | Add larger datasets, cross-validation and monitored distribution/performance drift. |
-| Airflow standalone and SQLite-backed MLflow support a local demonstration. | Use managed Postgres, object storage, TLS and externally managed identities for shared environments. |
+| The reference workload uses Iris and a single fixed holdout. | Add larger datasets, cross-validation and monitored distribution/performance drift. |
+| Airflow standalone and SQLite-backed MLflow support local execution. | Use managed Postgres, object storage, TLS and externally managed identities for shared environments. |
 | The operator confirms writes with an exact phrase and API key. | Add per-user authorization, expiring action approvals and an audit database. |
 | A timed-out remote request may complete after the caller stops waiting. | Add operation reconciliation and persistent idempotency keys before retries. |
 | General natural-language planning depends on a separately running Ollama model; the built-in planner supports documented routes. | Expand evaluated intent coverage and add measured planner accuracy/regression benchmarks. |

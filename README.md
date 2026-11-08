@@ -221,7 +221,7 @@ tests/          Automated reliability and safety tests
 scripts/        Live verification and deployment helpers
 evidence/       Exported verification records
 assets/         Project logo
-docs/           Technical report and demonstration guide
+docs/           Technical report
 .github/        Pull-request CI and live integration workflow
 ```
 
@@ -229,7 +229,6 @@ docs/           Technical report and demonstration guide
 
 - [System architecture and tool permissions](architecture.md)
 - [Technical report](docs/technical-report.md)
-- [Demonstration and engineering defense](docs/demo-guide.md)
 - [Evidence index](evidence/README.md)
 
 Built for **Assignment 03 — MLOps & Production AI Engineering, Fall 2026**.
