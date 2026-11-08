@@ -197,6 +197,8 @@ Install [Ollama](https://ollama.com), run `ollama pull qwen2.5:7b`, then set `OL
 
 ## Tests and verification
 
+The committed [verification records](evidence/VERIFICATION.md) include **29 passing tests**, all five real infrastructure conversations, both recovered failure drills, and successful local language-model tool planning.
+
 ```bash
 ruff check .
 pytest -q

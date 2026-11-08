@@ -22,6 +22,10 @@ The integrated assessment correctly identified that the newly trained best candi
 
 The recovery snapshot briefly includes a retiring Pod from the failed revision alongside the two healthy serving replicas. The final adapter exposes Pod termination state, and a regression test confirms that a retiring Pod does not cause a false unhealthy-deployment recommendation. Raw captured responses remain unchanged and identify their tested source commit.
 
+## Live language-model verification
+
+The independent [planner verification run](https://github.com/zohaib-umer/assignment-03-mlops-agent/actions/runs/42501784787) completed successfully. An actual Ollama `qwen2.5:0.5b` model selected `dvc.datasets` and `dvc.status`; both operations executed against the versioned repository and returned `ok`. The response reported no uncertainties. See [the complete request, plan execution and evidence](live/06-language-model-planning.json).
+
 ## Automated and local verification
 
 - **29 automated tests passed**; see [JUnit results](unit-tests.xml).
