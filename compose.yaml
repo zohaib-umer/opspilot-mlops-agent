@@ -1,0 +1,27 @@
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.22.0
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:////mlflow/tracking.db --artifacts-destination /mlflow/artifacts --serve-artifacts
+    ports: ["127.0.0.1:5000:5000"]
+    volumes: ["mlflow-data:/mlflow"]
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    command: airflow standalone
+    working_dir: /opt/project
+    ports: ["127.0.0.1:8080:8080"]
+    environment:
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/project/dags
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: admin:admin
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE: /opt/airflow/passwords.json
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      PYTHONPATH: /opt/project
+    volumes:
+      - .:/opt/project
+      - airflow-data:/opt/airflow
+    depends_on: [mlflow]
+volumes:
+  mlflow-data:
+  airflow-data:

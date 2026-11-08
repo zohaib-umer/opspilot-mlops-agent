@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="260" viewBox="0 0 920 260" role="img" aria-labelledby="title desc">
+  <title id="title">OpsPilot</title><desc id="desc">Connected operational layers surrounding a verified model, with the OpsPilot wordmark.</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111e36"/><stop offset="1" stop-color="#07101f"/></linearGradient><linearGradient id="accent" x2="1" y2="1"><stop stop-color="#54e0ce"/><stop offset="1" stop-color="#6b96ff"/></linearGradient></defs>
+  <rect width="920" height="260" rx="26" fill="url(#bg)"/>
+  <g transform="translate(130 130)">
+    <path d="M0-77 67-38 67 38 0 77-67 38-67-38Z" fill="none" stroke="#294565" stroke-width="2"/>
+    <path d="M0-64V64M-56-32 56 32M-56 32 56-32" stroke="#365779" stroke-width="3"/>
+    <g fill="url(#accent)"><circle cy="-77" r="9"/><circle cx="67" cy="38" r="9"/><circle cx="-67" cy="38" r="9"/></g>
+    <path d="M0-40 35-20 35 20 0 40-35 20-35-20Z" fill="#142d46" stroke="url(#accent)" stroke-width="3"/>
+    <path d="m-15 0 11 11L17-12" fill="none" stroke="#66e2cd" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="247" y="137" font-family="Segoe UI,Arial,sans-serif" font-size="66" font-weight="700" fill="#f1f7ff">Ops<tspan fill="#64ddcf">Pilot</tspan></text>
+  <text x="250" y="177" font-family="Segoe UI,Arial,sans-serif" font-size="17" letter-spacing="3" fill="#a0b4cd">EVIDENCE-DRIVEN MLOPS</text>
+  <path d="M724 80h112M724 130h112M724 180h112" stroke="#233951" stroke-width="2"/>
+  <g fill="#64ddcf"><circle cx="745" cy="80" r="5"/><circle cx="799" cy="130" r="5"/><circle cx="772" cy="180" r="5"/></g>
+</svg>

@@ -1,0 +1,11 @@
+# Apply only for an operator who is authorized to confirm restarts.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: opspilot-restarter
+  namespace: mlops
+rules:
+  - apiGroups: [apps]
+    resources: [deployments]
+    resourceNames: [prediction-api]
+    verbs: [patch]

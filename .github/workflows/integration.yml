@@ -1,0 +1,65 @@
+name: Live infrastructure verification
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      MLFLOW_TRACKING_URI: http://localhost:5000
+      AIRFLOW_URL: http://localhost:8080
+      AIRFLOW_USERNAME: admin
+      PYTHONPATH: .
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -e '.[dev]'
+      - name: Restore deterministic dataset and verify DVC
+        run: |
+          python -m training.train --prepare
+          dvc add data/iris.csv
+          git diff --exit-code data/iris.csv.dvc
+          dvc status --json
+          mkdir -p evidence/live
+      - name: Start tracking and orchestration services
+        run: |
+          chmod -R a+rwX .
+          docker compose up -d --build
+          python scripts/wait_services.py
+      - name: Train and build accepted model
+        run: |
+          python -m training.train
+          docker build -t opspilot-inference:1.0.0 .
+      - uses: helm/kind-action@v1
+        with:
+          cluster_name: opspilot
+      - name: Deploy prediction API
+        run: |
+          kind load docker-image opspilot-inference:1.0.0 --name opspilot
+          kubectl apply -f kubernetes/namespace.yaml
+          kubectl apply -f kubernetes/
+          python scripts/stamp_deployment.py
+          kubectl rollout status deployment/prediction-api -n mlops --timeout=180s
+      - name: Exercise five conversations and inject failures
+        run: python scripts/live_evidence.py
+      - name: Collect diagnostics
+        if: always()
+        run: |
+          mkdir -p evidence/live
+          docker compose ps --format json > evidence/live/services.json 2>&1 || true
+          kubectl get all -n mlops -o yaml > evidence/live/kubernetes.yaml 2>&1 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-infrastructure-evidence
+          path: evidence/live/
+      - name: Stop services
+        if: always()
+        run: docker compose down

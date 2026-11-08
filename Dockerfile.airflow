@@ -1,0 +1,7 @@
+FROM apache/airflow:3.0.3-python3.11
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+USER airflow
+RUN pip install --no-cache-dir apache-airflow==3.0.3 mlflow==2.22.0 scikit-learn==1.6.1 pandas==2.2.3
+WORKDIR /opt/project
+ENV PYTHONPATH=/opt/project

@@ -1,0 +1,11 @@
+stages:
+  train:
+    cmd: python -m training.train
+    deps:
+      - data/iris.csv
+      - training/train.py
+    outs:
+      - artifacts/work/serving
+    metrics:
+      - artifacts/work/metrics.json:
+          cache: false
